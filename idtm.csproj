@@ -6,4 +6,9 @@
     <DebugType>portable</DebugType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="2.4.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
 </Project>

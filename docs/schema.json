@@ -1,0 +1,30 @@
+{
+    "type":"object",
+    "patternProperties":{
+        ".jpg$":{
+            "type":"object",
+            "patternProperties":{
+                "":{"type":["number", "string"]}
+            }
+        },
+        ".png$":{
+            "type":"object",
+            "patternProperties":{
+                "":{"type":["number", "string"]}
+            }
+        },
+        ".tif$":{
+            "type":"object",
+            "patternProperties":{
+                "":{"type":["number", "string"]}
+            }
+        },
+        ".jpeg$":{
+            "type":"object",
+            "patternProperties":{
+                "":{"type":["number", "string"]}
+            }
+        }
+    },
+    "additionalProperties": false
+}
