@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO;
-using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 
 
 namespace Idtm {
     class Program {
         
 
-        static JsonSchema schema = JsonSchema.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "\\docs\\schema.json"));
+        static JSchema schema = JSchema.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "\\docs\\schema.json"));
 
         static void Main(string[] args) {
             string file;
@@ -18,10 +18,7 @@ namespace Idtm {
                 Console.WriteLine("The file you tried to specify doesn't exist");
             }
 
-            JObject user = JObject.Parse(@"{
-                'IMG_0001.jpg':{'tag1':5, 'tag2':7},
-                'IMG_0002.jpg':{'tag1':4, 'tag2':3},
-                }");
+            JObject user = JObject.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "\\docs\\demo.json"));
 
                 
 
