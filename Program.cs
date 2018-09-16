@@ -10,7 +10,7 @@ namespace Idtm {
     class Program {
         
 
-        public static JSchema schema = JSchema.Parse(File.ReadAllText("docs\\schema.json"));
+        //public static JSchema schema = JSchema.Parse(File.ReadAllText("docs\\schema.json"));
 
         static void Main(string[] args) {
             string file;
