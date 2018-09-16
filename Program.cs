@@ -3,13 +3,14 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Eto.Forms;
+using System.Reflection;
 
 
 namespace Idtm {
     class Program {
         
 
-        public static JSchema schema = JSchema.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "\\docs\\schema.json"));
+        public static JSchema schema = JSchema.Parse(File.ReadAllText("docs\\schema.json"));
 
         static void Main(string[] args) {
             string file;
@@ -25,7 +26,17 @@ namespace Idtm {
             Application app = new Application();
             app.Run(new IDTMForm());
             
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "idtm.docs.schema.json";
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream)){
+                string result = reader.ReadToEnd();
+                Console.WriteLine(result);
+            }
+
             
+
             
 
 

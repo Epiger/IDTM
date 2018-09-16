@@ -14,12 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<EmbeddedResource Include="$(MSBuildProjectDirectory)\\idtm.resx"/>-->
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <!--<Compile Include="Program.cs"/>-->
+    <EmbeddedResource Include="$(MSBuildProjectDirectory)\\icons\\*"/>
+    <EmbeddedResource Include="$(MSBuildProjectDirectory)\\docs\\schema.json"/>
   </ItemGroup>
 
 </Project>

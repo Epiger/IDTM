@@ -36,10 +36,7 @@ namespace Idtm {
 		    ToolBarText = "Open";
             ToolTip = "Open's a Folder";
             //Image = Icon.FromResource ("MyResourceName.ico");
-            
-            //Image = Bitmap.FromResource("OpenFolder_16x.png");
-            Image = new Bitmap("icons\\OpenFolder_16x.png");
-            //Bitmap.FromResource("idmt.icons.OpenFolder_16x.png");
+            Image = Bitmap.FromResource("idtm.icons.OpenFolder_16x.png");
             Shortcut = Application.Instance.CommonModifier | Keys.M;  // control+M or cmd+M
         }
 
@@ -58,7 +55,7 @@ namespace Idtm {
 		    ToolBarText = "Save";
             ToolTip = "Saves the work";
             //Image = Icon.FromResource ("MyResourceName.ico");
-            //Image = Bitmap.FromResource ("Idtm.icons.Save_16x.png");
+            Image = Bitmap.FromResource("idtm.icons.Save_16x.png");
             Shortcut = Application.Instance.CommonModifier | Keys.S;  // control+M or cmd+M
         }
 
