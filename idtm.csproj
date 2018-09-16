@@ -8,8 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="Eto.Forms" Version="2.4.1" />
+    <PackageReference Include="Eto.Platform.Windows" Version="2.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<EmbeddedResource Include="$(MSBuildProjectDirectory)\\idtm.resx"/>-->
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <!--<Compile Include="Program.cs"/>-->
   </ItemGroup>
 
 </Project>
