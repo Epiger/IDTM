@@ -14,36 +14,64 @@ namespace Idtm {
 
             ToolBar = new ToolBar{
                 Items ={ 
+                    new CreateCommand(),
                     new OpenCommand(),
                     new SeparatorToolItem(),
                     new SaveCommand()
                 }
             };
 
-            //FilePick pick = new FilePick();
-            //pick.ShowDialog(this);
-            //MessageBox.Show(Application.Instance.MainForm, "You clicked me!", "Tutorial 2", MessageBoxButtons.OK);
+        
 	    }
 
         
+    }
+
+    class CreateCommand : Command {
+        
+
+        public CreateCommand(){
+            //Text
+		    ToolBarText = "Create";
+            ToolTip = "Creates a new project";
+            //Icon
+            Image = Bitmap.FromResource("idtm.icons.Create_16x.png");
+            //Shortcut
+            Shortcut = Application.Instance.CommonModifier | Keys.O;
+        }
+
+        protected override void OnExecuted(EventArgs e){
+		    base.OnExecuted(e);
+
+            SelectFolderDialog dialog = new SelectFolderDialog();
+            dialog.Title = "Open Folder";
+            dialog.ShowDialog(Program.mainWindow);
+            Console.WriteLine(dialog.Directory);
+
+        }
     }
 
     class OpenCommand : Command {
         
 
         public OpenCommand(){
-            MenuText = "Open";
+            //Text
 		    ToolBarText = "Open";
             ToolTip = "Open's a Folder";
-            //Image = Icon.FromResource ("MyResourceName.ico");
+            //Icon
             Image = Bitmap.FromResource("idtm.icons.OpenFolder_16x.png");
-            Shortcut = Application.Instance.CommonModifier | Keys.M;  // control+M or cmd+M
+            //Shortcut
+            Shortcut = Application.Instance.CommonModifier | Keys.O;
         }
 
         protected override void OnExecuted(EventArgs e){
 		    base.OnExecuted(e);
 
-		    MessageBox.Show(Application.Instance.MainForm, "You clicked me!", "Tutorial 2", MessageBoxButtons.OK);
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Open file";
+            dialog.MultiSelect = false;
+            Console.WriteLine(dialog.FileName);
+
         }
     }
 
@@ -51,12 +79,13 @@ namespace Idtm {
         
 
         public SaveCommand(){
-            MenuText = "Save";
+            //Text
 		    ToolBarText = "Save";
             ToolTip = "Saves the work";
-            //Image = Icon.FromResource ("MyResourceName.ico");
+            //Icon
             Image = Bitmap.FromResource("idtm.icons.Save_16x.png");
-            Shortcut = Application.Instance.CommonModifier | Keys.S;  // control+M or cmd+M
+            //Shortcut
+            Shortcut = Application.Instance.CommonModifier | Keys.S;
         }
 
         protected override void OnExecuted(EventArgs e){
@@ -64,14 +93,6 @@ namespace Idtm {
 
 		    MessageBox.Show(Application.Instance.MainForm, "You clicked me!", "Tutorial 2", MessageBoxButtons.OK);
         }
-    }
-
-    class FilePick : FileDialog {
-
-        public FilePick(){
-            this.Title = "Open";
-        }
-
     }
 
 }

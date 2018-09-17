@@ -12,6 +12,12 @@ namespace Idtm {
 
         //public static JSchema schema = JSchema.Parse(File.ReadAllText("docs\\schema.json"));
 
+        public static IDTMForm mainWindow;
+
+        public static bool projSaved = true;
+        public static string actualFile = "";
+
+        [STAThread]
         static void Main(string[] args) {
             string file;
             if(args.Length == 1 && File.Exists(args[0])){
@@ -24,7 +30,8 @@ namespace Idtm {
             //Console.WriteLine(user.IsValid(schema));
 
             Application app = new Application();
-            app.Run(new IDTMForm());
+            mainWindow = new IDTMForm();
+            app.Run(mainWindow);
             
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "idtm.docs.schema.json";
