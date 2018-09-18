@@ -43,7 +43,14 @@ namespace Idtm {
                 Console.WriteLine(result);
             }
 
-            Bio.ReadFile();
+            //Outputs the imgs NO VALIDATION TILL NOW
+            foreach(Img img in Bio.ReadFile()){
+                Console.WriteLine(img.name);
+                for(int i = 0; i < img.names.Count; i++){
+                    Console.WriteLine("  " + img.names[i]);
+                    Console.WriteLine("    " + img.values[i]);
+                }
+            }
 
             
 

@@ -8,28 +8,76 @@ namespace Idtm.IO {
     public class Bio {
 
         public static List<Img> ReadFile(){
+            //The Reader
             JsonTextReader reader = new JsonTextReader(new StreamReader(Directory.GetCurrentDirectory() + "\\docs\\demo.json"));
-            while (reader.Read()){
-            if (reader.Value != null){
-                Console.WriteLine("Token: {0}, Value: {1}", reader.TokenType, reader.Value);
-            }else{
-                Console.WriteLine("Token: {0}", reader.TokenType);
-            }
-        }
+            //The List
+            List<Img> imgs = new List<Img>();
 
-        return null;
+            //Just to skip first
+            bool inRoot = false;
+            //A buffer for a var name
+            string name = "";
+            //List counter
+            int imgI = -1;
+            while (reader.Read()){
+                if (reader.Value != null){
+                    //Console.WriteLine("{0}, Value: {1}", reader.TokenType, reader.Value);
+                    switch(reader.TokenType.ToString()){
+                        case "PropertyName":
+                            if(name == ""){
+                                //If this is an image name
+                                name = reader.Value.ToString();
+                            }else {
+                                //If this is an Integer name
+                                imgs[imgI].names.Add(reader.Value.ToString());
+                            }
+                            break;
+                        case "Integer":
+                            //Sets value of the Integer
+                            imgs[imgI].values.Add(Int32.Parse(reader.Value.ToString()));
+                            break;
+                    }
+                }else{
+                    //Console.WriteLine("Token: {0}", reader.TokenType);
+                    switch(reader.TokenType.ToString()){
+                        case "StartObject":
+                            if(inRoot){
+                                //if we are already in the root object the following object has to be an img
+                                imgs.Add(new Img(name));
+                                imgI++;
+                            }else {
+                                //Now we are in the root
+                                inRoot = true;
+                            }
+                            break;
+                        case "EndObject":
+                            //Reset img name
+                            name = "";
+                            break;
+                    }
+                }
+            }
+
+        return imgs;
 
         }
     }
 
 
     public class Img {
-
-        public List<int> values;
         
-        public List<string> names;
+        //Stores the values corrosponding to the names
+        public List<int> values = new List<int>();
+        
+        //Stores the names of all the values
+        public List<string> names = new List<string>();
 
-        string name;
+        //stores the name of the image
+        public string name;
+
+        public Img(string name){
+            this.name = name;
+        }
 
     }
 
