@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Eto.Forms;
 using System.Reflection;
+using Idtm.IO;
 
 
 namespace Idtm {
@@ -41,6 +42,8 @@ namespace Idtm {
                 string result = reader.ReadToEnd();
                 Console.WriteLine(result);
             }
+
+            Bio.ReadFile();
 
             
 
