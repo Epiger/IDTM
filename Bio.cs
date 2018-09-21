@@ -11,9 +11,9 @@ namespace Idtm.IO {
 
     public class Bio {
 
-        public static List<Img> ReadFile(){
+        public static List<Img> ReadFile(string path){
             //The Reader
-            JsonTextReader reader = new JsonTextReader(new StreamReader(Directory.GetCurrentDirectory() + "\\docs\\demo.json"));
+            JsonTextReader reader = new JsonTextReader(new StreamReader(path));
             //The List
             List<Img> imgs = new List<Img>();
 
@@ -75,10 +75,8 @@ namespace Idtm.IO {
         }
 
 
-        public static string SaveFile(List<Img> imgs){
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
-
+        public static bool SaveFile(List<Img> imgs, string path){
+            using(StreamWriter sw = new StreamWriter(path))
             using(JsonWriter jw = new JsonTextWriter(sw)){
                 jw.Formatting = Formatting.Indented;
 
@@ -93,17 +91,29 @@ namespace Idtm.IO {
                     }
                     jw.WriteEndObject();
                 }
-
                 jw.WriteEndObject();
+
+                //Writes the Text
+                sw.WriteLine();
+
+                return true;
             }
 
+        
+
+        }
 
 
-            return sb.ToString();
+        public static bool CreateFile(string path){
+            using(StreamWriter sw = new StreamWriter(path)){
+                sw.WriteLine("{}");
+            }
+            return true;
         }
 
 
     }
+
 
 
     public class Img {

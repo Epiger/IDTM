@@ -5,6 +5,7 @@ using Newtonsoft.Json.Schema;
 using Eto.Forms;
 using System.Reflection;
 using Idtm.IO;
+using System.Collections.Generic;
 
 
 namespace Idtm {
@@ -17,6 +18,7 @@ namespace Idtm {
 
         public static bool projSaved = true;
         public static string actualFile = "";
+        public static List<Img> imgs = new List<Img>();
 
         [STAThread]
         static void Main(string[] args) {
@@ -44,7 +46,7 @@ namespace Idtm {
             }
 
             //Outputs the imgs NO VALIDATION TILL NOW
-            foreach(Img img in Bio.ReadFile()){
+            foreach(Img img in Bio.ReadFile(Directory.GetCurrentDirectory() + "\\docs\\demo.json")){
                 Console.WriteLine(img.name);
                 for(int i = 0; i < img.names.Count; i++){
                     Console.WriteLine("  " + img.names[i]);
@@ -52,8 +54,11 @@ namespace Idtm {
                 }
             }
 
+    	    //Read and Save test
+            Console.WriteLine(Bio.SaveFile(Bio.ReadFile(Directory.GetCurrentDirectory() + "\\docs\\demo.json"), Directory.GetCurrentDirectory() + "\\docs\\test.json"));
 
-            Console.WriteLine(Bio.SaveFile(Bio.ReadFile()));
+            //Validation test
+            Console.WriteLine(Bio.Validate(Directory.GetCurrentDirectory() + "\\docs\\demo.json"));
 
             
 
