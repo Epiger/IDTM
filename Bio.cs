@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
+using System.Reflection;
+using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace Idtm.IO {
 
@@ -61,6 +65,44 @@ namespace Idtm.IO {
         return imgs;
 
         }
+
+        public static bool Validate(string path){
+            using(StreamReader scr = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("idtm.docs.schema.json"))){
+                JSchema schema = JSchema.Parse(scr.ReadToEnd());
+                JObject file = JObject.Parse(File.ReadAllText(path));
+                return file.IsValid(schema);
+            }
+        }
+
+
+        public static string SaveFile(List<Img> imgs){
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+
+            using(JsonWriter jw = new JsonTextWriter(sw)){
+                jw.Formatting = Formatting.Indented;
+
+                jw.WriteStartObject();
+
+                foreach(Img img in imgs){
+                    jw.WritePropertyName(img.name);
+                    jw.WriteStartObject();
+                    for(int i = 0; i < img.names.Count; i++){
+                        jw.WritePropertyName(img.names[i]);
+                        jw.WriteValue(img.values[i]);
+                    }
+                    jw.WriteEndObject();
+                }
+
+                jw.WriteEndObject();
+            }
+
+
+
+            return sb.ToString();
+        }
+
+
     }
 
 

@@ -52,6 +52,9 @@ namespace Idtm {
                 }
             }
 
+
+            Console.WriteLine(Bio.SaveFile(Bio.ReadFile()));
+
             
 
             
