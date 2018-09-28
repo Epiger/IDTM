@@ -6,6 +6,7 @@ using Eto.Forms;
 using System.Reflection;
 using Idtm.IO;
 using System.Collections.Generic;
+using Idtm.Wind;
 
 
 namespace Idtm {
@@ -59,6 +60,7 @@ namespace Idtm {
 
             //Validation test
             Console.WriteLine(Bio.Validate(Directory.GetCurrentDirectory() + "\\docs\\demo.json"));
+
 
             
 
