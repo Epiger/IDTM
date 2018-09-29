@@ -17,7 +17,6 @@ namespace Idtm {
 
         public static IDTMForm mainWindow;
 
-        public static bool projSaved = true;
         public static string actualFile = "";
         public static List<Img> imgs = new List<Img>();
 
@@ -33,6 +32,9 @@ namespace Idtm {
             //JObject user = JObject.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "\\docs\\demo.json"));
             //Console.WriteLine(user.IsValid(schema));
 
+            Console.WriteLine(Path.GetDirectoryName("C:\\Some\\Path\\file.json") + Path.DirectorySeparatorChar + "imageFile");
+            
+
             Application app = new Application();
             mainWindow = new IDTMForm();
             app.Run(mainWindow);
@@ -47,7 +49,7 @@ namespace Idtm {
             }
 
             //Outputs the imgs NO VALIDATION TILL NOW
-            foreach(Img img in Bio.ReadFile(Directory.GetCurrentDirectory() + "\\docs\\demo.json")){
+            foreach(Img img in Bio.ReadFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json")){
                 Console.WriteLine(img.name);
                 for(int i = 0; i < img.names.Count; i++){
                     Console.WriteLine("  " + img.names[i]);
@@ -56,10 +58,10 @@ namespace Idtm {
             }
 
     	    //Read and Save test
-            Console.WriteLine(Bio.SaveFile(Bio.ReadFile(Directory.GetCurrentDirectory() + "\\docs\\demo.json"), Directory.GetCurrentDirectory() + "\\docs\\test.json"));
+            Console.WriteLine(Bio.SaveFile(Bio.ReadFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json"), Directory.GetCurrentDirectory() + "\\docs\\test.json"));
 
             //Validation test
-            Console.WriteLine(Bio.Validate(Directory.GetCurrentDirectory() + "\\docs\\demo.json"));
+            Console.WriteLine(Bio.Validate(Directory.GetCurrentDirectory() + "\\demo\\demo.json"));
 
 
             

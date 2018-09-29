@@ -11,34 +11,13 @@ namespace Idtm.Wind {
         public ImageScroller(){
             Content = new StackLayout(){
                 Items = {
-                    new StackLayoutItem(new ImageView(){
-                        Image = new Bitmap("IMG_0067.JPG"),
-                        Size = new Size(100, 75)   
-                    }),
-                    new StackLayoutItem(new ImageView(){
-                        Image = new Bitmap("IMG_0067.JPG"),
-                        Size = new Size(100, 75)   
-                    }),
-                    new StackLayoutItem(new ImageView(){
-                        Image = new Bitmap("IMG_0067.JPG"),
-                        Size = new Size(100, 75)   
-                    }),
-                    new StackLayoutItem(new ImageView(){
-                        Image = new Bitmap("IMG_0067.JPG"),
-                        Size = new Size(100, 75)   
-                    }),
-                    new StackLayoutItem(new ImageView(){
-                        Image = new Bitmap("IMG_0067.JPG"),
-                        Size = new Size(100, 75)   
-                    }),
-                    new StackLayoutItem(new ImageView(){
-                        Image = new Bitmap("IMG_0067.JPG"),
-                        Size = new Size(100, 75)   
-                    }),
-                    new StackLayoutItem(new ImageView(){
-                        Image = new Bitmap("IMG_0067.JPG"),
-                        Size = new Size(100, 75)   
-                    }),
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG"))
                 },
                 Orientation = Orientation.Vertical,
@@ -59,8 +38,7 @@ namespace Idtm.Wind {
         Image bitmap;
 
         public ImageItem (string image){
-            Console.WriteLine(Path.GetFullPath("D:\\Fme\\IDTM\\docs\\demo.json") + image);
-            bitmap = new Bitmap(image);
+            //bitmap = new Bitmap(image);
             Content = new ImageVii(this, bitmap);
             Size = new Size(115, 75);
             Padding = new Padding(5);
@@ -76,7 +54,7 @@ namespace Idtm.Wind {
 
             public ImageVii(ImageItem parent, Image image){
                 imgItem = parent;
-                Image = image;
+                //Image = image;
             }
 
 
@@ -107,17 +85,6 @@ namespace Idtm.Wind {
             base.OnMouseLeave(e);
             BackgroundColor = Color.FromArgb(0,255,0);
         }
-
-        /*public void mDown(MouseEventArgs e){
-            OnMouseDown(e);
-        }
-        public void mEnter(MouseEventArgs e){
-            OnMouseEnter(e);
-        }
-        public void mLeave(MouseEventArgs e){
-            OnMouseLeave(e);
-        }*/
-
 
     }
 
@@ -151,8 +118,8 @@ namespace Idtm.Wind {
                 Spacing = new Size(2, 5)
             };
             Size = new Size(-1, 72);
-            
-            
+            Border = BorderType.None;
+            BackgroundColor = Color.FromGrayscale(0x1C);
         }
 
         class TagLabel : TableCell {
@@ -162,30 +129,29 @@ namespace Idtm.Wind {
             public TagLabel(string text = ""){
                 mLabel = new Label(){Text = text};
                 this.Control = mLabel;
-                this.ScaleWidth = false;
-                
+                this.ScaleWidth = false;                
             }
 
         }
 
         class TagEdit : TableCell {
-            
+
             TextBox mBox;
 
             public TagEdit(string text = ""){
                 mBox = new TextBox(){Text = text};
                 this.Control = mBox;
                 this.ScaleWidth = false;
-                
+                    
             }
 
             public string getValue(){
                 return mBox.Text;
             }
 
-
         }
-
+            
+            
     }
     
 

@@ -8,12 +8,21 @@ using System.Collections.Generic;
 namespace Idtm.Wind {
 
     public class IDTMForm : Form {
+
+        public static string imageFile = "";
+
+        private Label titleLabel;
+        private ImageView mainImage;
+        private TagEditer tagEditer;
+        private ImageScroller imageExplor;
+
 	    public IDTMForm(){
 		    // sets the client (inner) size of the window for your content
 		    this.ClientSize = new Size(600, 400);
 
 		    this.Title = "IDTM";
 
+            //Toolbar
             ToolBar = new ToolBar{
                 Items ={ 
                     new CreateCommand(),
@@ -22,26 +31,25 @@ namespace Idtm.Wind {
                     new SaveCommand()
                 }
             };
-
+            
+            //Layout
             DynamicLayout layout = new DynamicLayout();
 
-            Bitmap btmp = new Bitmap("IMG_0067.JPG");
+
+            titleLabel = new Label();
+            mainImage = new ImageView();
+            tagEditer = new TagEditer();
+            imageExplor = new ImageScroller();
+            
 
             layout.BeginHorizontal();
             layout.BeginVertical(new Padding(5), new Size(5,5), true, false);
-            layout.Add(new Label(){
-                Text = "IMG_0067.JPG"
-            }, false, false);
-            layout.Add(new ImageView() {
-                //Main ImageView
-                Image = btmp,
-                
-                Size = new Size(100, btmp.Width/btmp.Height * 100)
-            }, true, true);
-            layout.Add(new TagEditer(), true, false);
+            layout.Add(titleLabel, false, false);
+            layout.Add(mainImage, true, true);
+            layout.Add(tagEditer, true, false);
             layout.EndVertical();
             layout.BeginVertical(new Padding(5), new Size(5,5), false, true);
-            layout.Add(new ImageScroller());
+            layout.Add(imageExplor);
             layout.EndVertical();
             layout.EndHorizontal();
 
@@ -52,8 +60,13 @@ namespace Idtm.Wind {
         
 	    }
 
-        
+        public void ReDraw(){
+            titleLabel.Text = imageFile;
+            mainImage.Image = new Bitmap(Path.GetFullPath(Program.actualFile) + Path.DirectorySeparatorChar + imageFile);
+        }
+
     }
+
 
     class CreateCommand : Command {
         
