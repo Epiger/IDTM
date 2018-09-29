@@ -62,7 +62,7 @@ namespace Idtm.Wind {
 
         public void ReDraw(){
             titleLabel.Text = imageFile;
-            mainImage.Image = new Bitmap(Path.GetFullPath(Program.actualFile) + Path.DirectorySeparatorChar + imageFile);
+            mainImage.Image = new Bitmap(Path.GetFullPath(Bio.idtmFile) + Path.DirectorySeparatorChar + imageFile);
         }
 
     }
@@ -95,7 +95,7 @@ namespace Idtm.Wind {
             
 
             if(dialog.FileName.Contains(Path.DirectorySeparatorChar.ToString())){
-                Program.actualFile = dialog.FileName;
+                Bio.idtmFile = dialog.FileName;
                 Bio.CreateFile(dialog.FileName);
 
                 //LATER AUTOMATICLY OPEN FILE
@@ -162,8 +162,8 @@ namespace Idtm.Wind {
 
         protected override void OnExecuted(EventArgs e){
 		    base.OnExecuted(e);
-            if(Program.actualFile != "" && File.Exists(Program.actualFile)){
-                Bio.SaveFile(Program.imgs, Program.actualFile);
+            if(Bio.idtmFile != "" && File.Exists(Bio.idtmFile)){
+                Bio.SaveFile(Bio.imgs, Bio.idtmFile);
             }
         }
     }

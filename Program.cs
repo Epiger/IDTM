@@ -15,9 +15,6 @@ namespace Idtm {
 
         public static IDTMForm mainWindow;
 
-        public static string actualFile = "";
-        public static List<Img> imgs = new List<Img>();
-        public static List<string> filesInFolder = new List<string>();
 
         [STAThread]
         static void Main(string[] args) {
