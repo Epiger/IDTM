@@ -13,12 +13,11 @@ namespace Idtm {
     class Program {
         
 
-        //public static JSchema schema = JSchema.Parse(File.ReadAllText("docs\\schema.json"));
-
         public static IDTMForm mainWindow;
 
         public static string actualFile = "";
         public static List<Img> imgs = new List<Img>();
+        public static List<string> filesInFolder = new List<string>();
 
         [STAThread]
         static void Main(string[] args) {
@@ -62,6 +61,8 @@ namespace Idtm {
 
             //Validation test
             Console.WriteLine(Bio.Validate(Directory.GetCurrentDirectory() + "\\demo\\demo.json"));
+
+            Aio.OpenFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json");
 
 
             

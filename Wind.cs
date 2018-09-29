@@ -134,8 +134,9 @@ namespace Idtm.Wind {
                     if(Bio.Validate(dialog.FileName)){
                         //Does the file has a vaild schema
                         //Set the List and the filepath string
-                        Program.imgs = Bio.ReadFile(dialog.FileName);
-                        Program.actualFile = dialog.FileName;
+                        Aio.OpenFile(dialog.FileName);
+                        
+                        
                     }else {
                         MessageBox.Show("This file doesn't have the right schema!");
                     }

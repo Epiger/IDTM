@@ -11,14 +11,14 @@ namespace Idtm.Wind {
         public ImageScroller(){
             Content = new StackLayout(){
                 Items = {
+                    /*new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
-                    new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
-                    new StackLayoutItem(new ImageItem("IMG_0067.JPG"))
+                    new StackLayoutItem(new ImageItem("IMG_0067.JPG"))*/
                 },
                 Orientation = Orientation.Vertical,
                 HorizontalContentAlignment = HorizontalAlignment.Center
@@ -94,24 +94,24 @@ namespace Idtm.Wind {
             this.Content = new TableLayout(){
                 Rows = {
                     new TableRow(
-                        new TagLabel("tag1"),
+                        /*new TagLabel("tag1"),
                         new TagLabel("tag2"),
                         new TagLabel("tag3"),
                         new TagLabel("tag4"),
                         new TagLabel("tag5"),
                         new TagLabel("tag6"),
                         new TagLabel("tag7"),
-                        null
+                        null*/
                     ),
                     new TableRow(
+                        /*new TagEdit(),
                         new TagEdit(),
                         new TagEdit(),
                         new TagEdit(),
                         new TagEdit(),
                         new TagEdit(),
                         new TagEdit(),
-                        new TagEdit(),
-                        null
+                        null*/
                     )
                 },
                 Padding = new Padding(2, 5),

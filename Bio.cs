@@ -11,6 +11,12 @@ namespace Idtm.IO {
 
     public class Bio {
 
+        public static string idtmFile = "";
+        public static string idtmFolder = "";
+        public static List<Img> imgs = new List<Img>();
+        public static List<string> filesInFolder = new List<string>();
+        public static string[] formats = new string[]{"jpg", "jpeg", "png", "tif", "tiff", "gif", "bmp"};
+
         public static List<Img> ReadFile(string path){
             //The Reader
             JsonTextReader reader = new JsonTextReader(new StreamReader(path));
