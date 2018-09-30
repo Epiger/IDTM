@@ -117,8 +117,10 @@ namespace Idtm.IO {
             return true;
         }
 
-
+       
     }
+
+    
 
 
 
@@ -135,6 +137,15 @@ namespace Idtm.IO {
 
         public Img(string name){
             this.name = name;
+        }
+
+        public static int IndexOf(string name, List<Img> imgs){
+            for(int i = 0; i < imgs.Count; i++){
+                if(imgs[i].name == name){
+                    return i;
+                }
+            }
+            return -1;
         }
 
     }

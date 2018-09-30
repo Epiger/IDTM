@@ -61,8 +61,8 @@ namespace Idtm.Wind {
 	    }
 
         public void ReDraw(){
-            titleLabel.Text = imageFile;
-            mainImage.Image = new Bitmap(Path.GetFullPath(Bio.idtmFile) + Path.DirectorySeparatorChar + imageFile);
+            /*titleLabel.Text = imageFile;
+            mainImage.Image = new Bitmap(Path.GetFullPath(Bio.idtmFile) + Path.DirectorySeparatorChar + imageFile);*/
         }
 
     }
