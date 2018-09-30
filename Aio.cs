@@ -40,73 +40,44 @@ namespace Idtm.IO{
         private static void OnChanged(object source, FileSystemEventArgs e){
             switch (e.ChangeType){
                 case WatcherChangeTypes.Created:
-                    Console.WriteLine("Created: " + e.Name);
+                    //Console.WriteLine("Created: " + e.Name);
                     if(MatchesExt(e.Name)){
-                        AddIfNecessary(e.Name);
+                        //Add to filesInFolder
+                        Add(e.Name);
                     }
                     //Redraw
                     Program.mainWindow.ReDraw();
                     break;
                 case WatcherChangeTypes.Deleted:
-                    Console.WriteLine("Deleted: " + e.Name);
-                    //Remove it from the folder record
-                    Bio.filesInFolder.Remove(e.Name);
-                    int index = Img.IndexOf(e.Name, Bio.imgs);
-                    if(index != -1){
-                        //If it exits in the imgs remove it
-                        Bio.imgs.RemoveAt(index);
-                    }
+                    //Console.WriteLine("Deleted: " + e.Name);
+                    //Remove from filesInFolder and imgs
+                    Remove(e.Name);
                     //Redraw
                     Program.mainWindow.ReDraw();        
                     break;
             }
-            foreach(Img img in Bio.imgs){
-                Console.WriteLine(img.name);
-            }
-            Console.WriteLine();
-            foreach(string file in Bio.filesInFolder){
-                Console.WriteLine(file);
-            }
         }
 
         private static void OnRenamed(object source, RenamedEventArgs e){
-            Console.WriteLine("Renamed: " + e.Name + " " + e.OldName);
+            //Console.WriteLine("Renamed: " + e.Name + " " + e.OldName);
             if(e.ChangeType == WatcherChangeTypes.Renamed && MatchesExt(e.OldName) && MatchesExt(e.Name) && Bio.filesInFolder.Contains(e.OldName)){
-                //Update filesInFolders
-                Bio.filesInFolder[Bio.filesInFolder.IndexOf(e.OldName)] = e.Name;
-                //Update imgs
-                int index = Img.IndexOf(e.OldName, Bio.imgs);
-                if(index != -1){
-                    //If he found a match in the collected files he renames it
-                    Bio.imgs[index].name = e.Name;
-                }
+                //If one of the images got a rename
+                //Rename the entry in filesInFolder and imgs
+                Rename(e.Name, e.OldName);
                 //Redraw
                 Program.mainWindow.ReDraw();
             }else if(e.ChangeType == WatcherChangeTypes.Renamed && MatchesExt(e.OldName) && !MatchesExt(e.Name) && Bio.filesInFolder.Contains(e.OldName)){
+                //If the new name isn't an image file
                 //Remove it from the folder record
                 Bio.filesInFolder.Remove(e.Name);
                 //Redraw
                 Program.mainWindow.ReDraw();             
             }else if(e.ChangeType == WatcherChangeTypes.Renamed && MatchesExt(e.Name)){
-                //Add to filesInFolders if necessary
-                AddIfNecessary(e.Name);
+                //If an image file was created
+                //Add to filesInFolders
+                Add(e.Name);
                 //Redraw
                 Program.mainWindow.ReDraw();
-            }
-            foreach(Img img in Bio.imgs){
-                Console.WriteLine(img.name);
-            }
-            Console.WriteLine();
-            foreach(string file in Bio.filesInFolder){
-                Console.WriteLine(file);
-            }
-        }
-
-        public static void AddIfNecessary(string name){
-            //Check if it doesn't exist in filesInFolder
-            if(!Bio.filesInFolder.Contains(name)){
-                //Add to Bio.filesInFolder
-                Bio.filesInFolder.Add(name);
             }
         }
         public static bool MatchesExt(string name){
@@ -116,6 +87,34 @@ namespace Idtm.IO{
                 }
             }
             return false;
+        }
+
+
+        public static void Add(string name){
+            //Check if it doesn't exist in filesInFolder
+            if(!Bio.filesInFolder.Contains(name)){
+                //Add to Bio.filesInFolder
+                Bio.filesInFolder.Add(name);
+            }
+        }
+        public static void Remove(string name){
+            //Remove form filesInFolder
+            Bio.filesInFolder.Remove(name);
+            //Remove from imgs
+            int index = Img.IndexOf(name, Bio.imgs);
+            if (index > -1 && index < Bio.imgs.Count){
+                Bio.imgs.RemoveAt(index);
+            }
+        }
+        public static void Rename(string name, string oldName){
+            //Update filesInFolders
+            Bio.filesInFolder[Bio.filesInFolder.IndexOf(oldName)] = name;
+            //Update imgs
+            int index = Img.IndexOf(oldName, Bio.imgs);
+            if(index != -1 && index < Bio.imgs.Count){
+                //If he found a match in the collected files he renames it
+                Bio.imgs[index].name = name;
+            }
         }
 
     }
