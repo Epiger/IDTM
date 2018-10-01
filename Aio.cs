@@ -12,7 +12,7 @@ namespace Idtm.IO{
             Bio.idtmFile = file;
             Bio.idtmFolder = Path.GetDirectoryName(file);
 
-            //Addes the files inside of the specifed folder
+            //Addes the files to filesInFolder
             foreach(string fileIF in Directory.GetFiles(Bio.idtmFolder)){
                 if(MatchesExt(fileIF)){
                     Bio.filesInFolder.Add(Path.GetFileName(fileIF));
@@ -21,6 +21,10 @@ namespace Idtm.IO{
 
             //addes the listener
             AddFolderWatcher(Bio.idtmFolder);
+
+            Program.mainWindow.ReDraw();
+
+            
         }
 
 

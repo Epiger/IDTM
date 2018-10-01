@@ -2,15 +2,20 @@ using System;
 using Eto.Forms;
 using Eto.Drawing;
 using System.IO;
+using System.Collections.Generic;
+using Idtm.IO;
 
 namespace Idtm.Wind {
 
     public class ImageScroller : Scrollable {
-
+        
+        StackLayout layout;
+        List<ImageItem> imageItems = new List<ImageItem>();
 
         public ImageScroller(){
-            Content = new StackLayout(){
-                Items = {
+            layout = new StackLayout(){
+                
+                //Items = {
                     /*new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
@@ -19,14 +24,27 @@ namespace Idtm.Wind {
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG")),
                     new StackLayoutItem(new ImageItem("IMG_0067.JPG"))*/
-                },
+                //},
+                
                 Orientation = Orientation.Vertical,
                 HorizontalContentAlignment = HorizontalAlignment.Center
 
             };
+            Content = layout;
             Border = BorderType.None;
             BackgroundColor = Color.FromGrayscale(0x1C);
             Size = new Size(150, -1);          
+
+        }
+
+        public void ReDraw(){
+            layout.Items.Clear();
+            foreach(string imgstr in Bio.filesInFolder){
+                layout.Items.Add(new StackLayoutItem(new ImageItem(Bio.idtmFolder + Path.DirectorySeparatorChar + imgstr), false));
+            
+            
+            }
+            layout.Items.Add(null);
 
         }
 
@@ -34,18 +52,48 @@ namespace Idtm.Wind {
 
     public class ImageItem : Panel {
 
-        string image;
+        //string image;
         Image bitmap;
+        TableLayout layout;
+        int state = 1;
+
+        public const int inFolder = 0;
+        public const int inFolderApplied = 1;
+        public const int inFolderFullApplied = 2;
 
         public ImageItem (string image){
-            //bitmap = new Bitmap(image);
-            Content = new ImageVii(this, bitmap);
-            Size = new Size(115, 75);
-            Padding = new Padding(5);
-            BackgroundColor = Color.FromArgb(0, 255, 0);
+            bitmap = new Bitmap(image);
+            layout = new TableLayout();
+            //layout.BackgroundColor = Color.FromArgb(255,255,0);
+            layout.Rows.Add(new TableRow(new TableCell(new ImageVii(this, bitmap), false)));
+            layout.Rows.Add(new TableRow(new TableCell(new Label(){Text = Path.GetFileName(image)}, false)));
+            layout.Spacing = new Size(0, 3);
+            
+            
+            
+            
             
 
+            Content = layout;
+            //Size = new Size(115, 200);
+            Padding = new Padding(5);
+            SetState();
+        }
 
+        public void SetState(){SetState(state);}
+        public void SetState(int state){
+            //States 
+            switch(state){
+                case inFolder:
+                    BackgroundColor = Color.FromArgb(255, 0, 0);
+                    break;
+                case inFolderApplied:
+                    BackgroundColor = Color.FromArgb(0, 255, 0);
+                    break;
+                case inFolderFullApplied:
+                    BackgroundColor = Color.FromArgb(0, 0, 255);
+                    break;
+            }
         }
 
         class ImageVii : ImageView {
@@ -54,7 +102,8 @@ namespace Idtm.Wind {
 
             public ImageVii(ImageItem parent, Image image){
                 imgItem = parent;
-                //Image = image;
+                Image = image;
+                Size = new Size(125, (int)(125/((float)image.Width/(float)image.Height)));
             }
 
 
@@ -90,8 +139,10 @@ namespace Idtm.Wind {
 
     public class TagEditer : Scrollable {
 
+        TableLayout layout;
+
         public TagEditer() {
-            this.Content = new TableLayout(){
+            layout = new TableLayout(){
                 Rows = {
                     new TableRow(
                         /*new TagLabel("tag1"),
@@ -117,12 +168,22 @@ namespace Idtm.Wind {
                 Padding = new Padding(2, 5),
                 Spacing = new Size(2, 5)
             };
+            Content = layout;
             Size = new Size(-1, 72);
             Border = BorderType.None;
             BackgroundColor = Color.FromGrayscale(0x1C);
         }
 
-        class TagLabel : TableCell {
+        public void ReDraw(){
+            layout.Rows[0].Cells.Clear();
+            layout.Rows[1].Cells.Clear();
+            for(int i = 0; i < Bio.imgs[IDTMForm.imageFile].names.Count; i++){
+                layout.Rows[0].Cells.Add(new TagLabel(Bio.imgs[IDTMForm.imageFile].names[i]));
+                layout.Rows[1].Cells.Add(new TagEdit());
+            }
+        }
+
+        private class TagLabel : TableCell {
 
             Label mLabel;
 
@@ -134,7 +195,7 @@ namespace Idtm.Wind {
 
         }
 
-        class TagEdit : TableCell {
+        private class TagEdit : TableCell {
 
             TextBox mBox;
 

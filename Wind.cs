@@ -9,7 +9,7 @@ namespace Idtm.Wind {
 
     public class IDTMForm : Form {
 
-        public static string imageFile = "";
+        public static int imageFile = 0;
 
         private Label titleLabel;
         private ImageView mainImage;
@@ -61,8 +61,21 @@ namespace Idtm.Wind {
 	    }
 
         public void ReDraw(){
-            /*titleLabel.Text = imageFile;
-            mainImage.Image = new Bitmap(Path.GetFullPath(Bio.idtmFile) + Path.DirectorySeparatorChar + imageFile);*/
+            //Setting the vars
+            titleLabel.Text = Bio.imgs[imageFile].name;
+            mainImage.Image = new Bitmap(Bio.idtmFolder + Path.DirectorySeparatorChar + Bio.imgs[imageFile].name);
+
+            //Calling ReDraw
+            imageExplor.ReDraw();
+            tagEditer.ReDraw();
+
+            
+
+            //Invalidating
+            titleLabel.Invalidate();
+            mainImage.Invalidate();
+            tagEditer.Invalidate(true);
+            imageExplor.Invalidate(true);
         }
 
     }
