@@ -201,9 +201,21 @@ namespace Idtm.Wind {
                 Padding = new Padding(2, 5),
                 Spacing = new Size(2, 5)
             };
-            for(int i = 0; i < Bio.imgs[IDTMForm.imageFile].names.Count; i++){
-                layout.Rows[0].Cells.Add(new TagLabel(Bio.imgs[IDTMForm.imageFile].names[i]));
-                layout.Rows[1].Cells.Add(new TagEdit());
+            int i = 0;
+            foreach(string tag in Bio.tagHeader){
+                try{
+                    if(tag == Bio.imgs[IDTMForm.imageFile].names[i]){
+                        layout.Rows[0].Cells.Add(new TagLabel(Bio.imgs[IDTMForm.imageFile].names[i], 1));
+                        layout.Rows[1].Cells.Add(new TagEdit(Bio.imgs[IDTMForm.imageFile].values[i].ToString()));
+                        i++;
+                    }else {
+                        layout.Rows[0].Cells.Add(new TagLabel(tag, 0));
+                        layout.Rows[1].Cells.Add(new TagEdit());
+                    }
+                }catch(ArgumentOutOfRangeException){
+                    layout.Rows[0].Cells.Add(new TagLabel(tag, 0));
+                    layout.Rows[1].Cells.Add(new TagEdit());
+                }
             }
             layout.Rows[0].Cells.Add(null);
             layout.Rows[1].Cells.Add(null);
@@ -215,10 +227,26 @@ namespace Idtm.Wind {
 
             Label mLabel;
 
-            public TagLabel(string text = ""){
+            public const int GrayState = 0;
+            public const int BlackState = 1;
+            
+
+            public TagLabel(string text = "", int state = 0){
                 mLabel = new Label(){Text = text};
+                SetState(state);
                 this.Control = mLabel;
-                this.ScaleWidth = false;                
+                this.ScaleWidth = false;        
+            }
+
+            public void SetState(int state){
+                switch(state){
+                    case GrayState:
+                        mLabel.TextColor = Color.FromGrayscale(0xaa);
+                        break;
+                    case BlackState:
+                        mLabel.TextColor = Color.FromGrayscale(0xFF);
+                        break;
+                }
             }
 
         }

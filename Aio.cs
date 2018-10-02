@@ -13,6 +13,7 @@ namespace Idtm.IO{
             Bio.idtmFolder = Path.GetDirectoryName(file);
 
             //Addes the files to filesInFolder
+            Bio.filesInFolder.Clear();
             foreach(string fileIF in Directory.GetFiles(Bio.idtmFolder)){
                 if(Bio.MatchesExt(fileIF)){
                     Bio.filesInFolder.Add(Path.GetFileName(fileIF));

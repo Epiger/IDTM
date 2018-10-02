@@ -23,6 +23,8 @@ namespace Idtm.IO {
             JsonTextReader reader = new JsonTextReader(new StreamReader(path));
             //The List
             List<Img> imgs = new List<Img>();
+            //Reseting the tagHeader
+            tagHeader.Clear();
 
             //Just to skip first
             bool inRoot = false;
@@ -49,6 +51,7 @@ namespace Idtm.IO {
                             break;
                         case "String":
                             if(name == "tag_header"){
+                                //If object/array this string belongs to is named tag_header
                                 tagHeader.Add(reader.Value.ToString());
                             }
                             break;
@@ -70,10 +73,8 @@ namespace Idtm.IO {
                             //Reset img name
                             name = "";
                             break;
-                        case "StartArray":
-                            
-                            break;
                         case "EndArray":
+                            //Reset img name
                             name = "";
                             break;
                     }
