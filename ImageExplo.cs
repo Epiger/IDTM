@@ -66,7 +66,7 @@ namespace Idtm.Wind {
             layout = new TableLayout();
             //layout.BackgroundColor = Color.FromArgb(255,255,0);
             layout.Rows.Add(new TableRow(new TableCell(new ImageVii(this, bitmap), false)));
-            layout.Rows.Add(new TableRow(new TableCell(new Label(){Text = Path.GetFileName(image)}, false)));
+            layout.Rows.Add(new TableRow(new TableCell(new ImageLabel(this, Path.GetFileName(image)), false)));
             layout.Spacing = new Size(0, 3);
             
             
@@ -94,6 +94,27 @@ namespace Idtm.Wind {
                     BackgroundColor = Color.FromArgb(0, 0, 255);
                     break;
             }
+        }
+
+        class ImageLabel : Label{
+            
+            ImageItem imgItem;
+
+            public ImageLabel(ImageItem parent, string text = ""){
+                imgItem = parent;
+                Text = text;
+            }
+
+            protected override void OnMouseEnter(MouseEventArgs e){
+                base.OnMouseEnter(e);
+                imgItem.OnMouseEnter(e);
+            }
+
+            protected override void OnMouseLeave(MouseEventArgs e){
+                base.OnMouseLeave(e);
+                imgItem.OnMouseLeave(e);
+            }
+
         }
 
         class ImageVii : ImageView {
@@ -146,7 +167,7 @@ namespace Idtm.Wind {
                 Rows = {
                     new TableRow(
                         /*new TagLabel("tag1"),
-                        new TagLabel("tag2"),
+                        new TagLabel("tag2")
                         new TagLabel("tag3"),
                         new TagLabel("tag4"),
                         new TagLabel("tag5"),
@@ -156,7 +177,7 @@ namespace Idtm.Wind {
                     ),
                     new TableRow(
                         /*new TagEdit(),
-                        new TagEdit(),
+                        new TagEdit()
                         new TagEdit(),
                         new TagEdit(),
                         new TagEdit(),
@@ -175,12 +196,19 @@ namespace Idtm.Wind {
         }
 
         public void ReDraw(){
-            layout.Rows[0].Cells.Clear();
-            layout.Rows[1].Cells.Clear();
+            layout = new TableLayout(){
+                Rows = {new TableRow(), new TableRow()},
+                Padding = new Padding(2, 5),
+                Spacing = new Size(2, 5)
+            };
             for(int i = 0; i < Bio.imgs[IDTMForm.imageFile].names.Count; i++){
                 layout.Rows[0].Cells.Add(new TagLabel(Bio.imgs[IDTMForm.imageFile].names[i]));
                 layout.Rows[1].Cells.Add(new TagEdit());
             }
+            layout.Rows[0].Cells.Add(null);
+            layout.Rows[1].Cells.Add(null);
+            Content = layout;
+            
         }
 
         private class TagLabel : TableCell {
