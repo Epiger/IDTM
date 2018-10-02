@@ -14,7 +14,7 @@ namespace Idtm.IO{
 
             //Addes the files to filesInFolder
             foreach(string fileIF in Directory.GetFiles(Bio.idtmFolder)){
-                if(MatchesExt(fileIF)){
+                if(Bio.MatchesExt(fileIF)){
                     Bio.filesInFolder.Add(Path.GetFileName(fileIF));
                 }                
             }
@@ -45,7 +45,7 @@ namespace Idtm.IO{
             switch (e.ChangeType){
                 case WatcherChangeTypes.Created:
                     //Console.WriteLine("Created: " + e.Name);
-                    if(MatchesExt(e.Name)){
+                    if(Bio.MatchesExt(e.Name)){
                         //Add to filesInFolder
                         Add(e.Name);
                     }
@@ -64,19 +64,19 @@ namespace Idtm.IO{
 
         private static void OnRenamed(object source, RenamedEventArgs e){
             //Console.WriteLine("Renamed: " + e.Name + " " + e.OldName);
-            if(e.ChangeType == WatcherChangeTypes.Renamed && MatchesExt(e.OldName) && MatchesExt(e.Name) && Bio.filesInFolder.Contains(e.OldName)){
+            if(e.ChangeType == WatcherChangeTypes.Renamed && Bio.MatchesExt(e.OldName) && Bio.MatchesExt(e.Name) && Bio.filesInFolder.Contains(e.OldName)){
                 //If one of the images got a rename
                 //Rename the entry in filesInFolder and imgs
                 Rename(e.Name, e.OldName);
                 //Redraw
                 Program.mainWindow.ReDraw();
-            }else if(e.ChangeType == WatcherChangeTypes.Renamed && MatchesExt(e.OldName) && !MatchesExt(e.Name) && Bio.filesInFolder.Contains(e.OldName)){
+            }else if(e.ChangeType == WatcherChangeTypes.Renamed && Bio.MatchesExt(e.OldName) && !Bio.MatchesExt(e.Name) && Bio.filesInFolder.Contains(e.OldName)){
                 //If the new name isn't an image file
                 //Remove it from the folder record
                 Bio.filesInFolder.Remove(e.Name);
                 //Redraw
                 Program.mainWindow.ReDraw();             
-            }else if(e.ChangeType == WatcherChangeTypes.Renamed && MatchesExt(e.Name)){
+            }else if(e.ChangeType == WatcherChangeTypes.Renamed && Bio.MatchesExt(e.Name)){
                 //If an image file was created
                 //Add to filesInFolders
                 Add(e.Name);
@@ -84,14 +84,7 @@ namespace Idtm.IO{
                 Program.mainWindow.ReDraw();
             }
         }
-        public static bool MatchesExt(string name){
-            foreach(string ext in Bio.formats){
-                if(name.Substring(name.LastIndexOf('.')+1).Equals(ext, StringComparison.InvariantCultureIgnoreCase)){
-                    return true;
-                }
-            }
-            return false;
-        }
+        
 
 
         public static void Add(string name){

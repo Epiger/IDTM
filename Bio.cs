@@ -16,6 +16,7 @@ namespace Idtm.IO {
         public static List<Img> imgs = new List<Img>();
         public static List<string> filesInFolder = new List<string>();
         public static string[] formats = new string[]{"jpg", "jpeg", "png", "tif", "tiff", "gif", "bmp"};
+        public static List<string> tagHeader = new List<string>();
 
         public static List<Img> ReadFile(string path){
             //The Reader
@@ -31,7 +32,7 @@ namespace Idtm.IO {
             int imgI = -1;
             while (reader.Read()){
                 if (reader.Value != null){
-                    //Console.WriteLine("{0}, Value: {1}", reader.TokenType, reader.Value);
+                    Console.WriteLine("{0}, Value: {1}", reader.TokenType, reader.Value);
                     switch(reader.TokenType.ToString()){
                         case "PropertyName":
                             if(name == ""){
@@ -46,9 +47,14 @@ namespace Idtm.IO {
                             //Sets value of the Integer
                             imgs[imgI].values.Add(Int32.Parse(reader.Value.ToString()));
                             break;
+                        case "String":
+                            if(name == "tag_header"){
+                                tagHeader.Add(reader.Value.ToString());
+                            }
+                            break;
                     }
                 }else{
-                    //Console.WriteLine("Token: {0}", reader.TokenType);
+                    Console.WriteLine("Token: {0}", reader.TokenType);
                     switch(reader.TokenType.ToString()){
                         case "StartObject":
                             if(inRoot){
@@ -62,6 +68,12 @@ namespace Idtm.IO {
                             break;
                         case "EndObject":
                             //Reset img name
+                            name = "";
+                            break;
+                        case "StartArray":
+                            
+                            break;
+                        case "EndArray":
                             name = "";
                             break;
                     }
@@ -115,6 +127,15 @@ namespace Idtm.IO {
                 sw.WriteLine("{}");
             }
             return true;
+        }
+
+        public static bool MatchesExt(string name){
+            foreach(string ext in Bio.formats){
+                if(name.Substring(name.LastIndexOf('.')+1).Equals(ext, StringComparison.InvariantCultureIgnoreCase)){
+                    return true;
+                }
+            }
+            return false;
         }
 
        

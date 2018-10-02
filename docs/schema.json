@@ -3,30 +3,55 @@
     "$id": "http://epiger.github.io/IDTM/schema.json",
     "type":"object",
     "patternProperties":{
+        "^tag_header$":{
+            "type":"array",
+            "items":{
+                "type":"string"
+            }
+        },
         ".jpg$":{
             "type":"object",
             "patternProperties":{
-                "":{"type":["number", "string"]}
+                "":{"type":"number"}
             }
         },
         ".png$":{
             "type":"object",
             "patternProperties":{
-                "":{"type":["number", "string"]}
+                "":{"type":"number"}
             }
         },
         ".tif$":{
             "type":"object",
             "patternProperties":{
-                "":{"type":["number", "string"]}
+                "":{"type":"number"}
             }
         },
         ".jpeg$":{
             "type":"object",
             "patternProperties":{
-                "":{"type":["number", "string"]}
+                "":{"type":"number"}
+            }
+        },
+        ".tiff$":{
+            "type":"object",
+            "patternProperties":{
+                "":{"type":"number"}
+            }
+        },
+        ".gif$":{
+            "type":"object",
+            "patternProperties":{
+                "":{"type":"number"}
+            }
+        },
+        ".bmp$":{
+            "type":"object",
+            "patternProperties":{
+                "":{"type":"number"}
             }
         }
     },
+    
     "additionalProperties": false
 }

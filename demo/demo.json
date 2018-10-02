@@ -1,4 +1,5 @@
 {
+    "tag_header":["tag1","tag2"],
     "IMG_0067.jpg":{"tag1":5, "tag2":7},
     "IMG_0096.jpg":{"tag1":4, "tag2":3}
  }
