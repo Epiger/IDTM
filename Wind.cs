@@ -15,6 +15,7 @@ namespace Idtm.Wind {
         private ImageView mainImage;
         private TagEditer tagEditer;
         private ImageScroller imageExplor;
+        private TagGrid tagGrid;
 
 	    public IDTMForm(){
 		    // sets the client (inner) size of the window for your content
@@ -40,13 +41,14 @@ namespace Idtm.Wind {
             mainImage = new ImageView();
             tagEditer = new TagEditer();
             imageExplor = new ImageScroller();
+            tagGrid = new TagGrid();
             
-
+            
             layout.BeginHorizontal();
             layout.BeginVertical(new Padding(5), new Size(5,5), true, false);
             layout.Add(titleLabel, false, false);
             layout.Add(mainImage, true, true);
-            layout.Add(tagEditer, true, false);
+            layout.Add(tagGrid, true, false);
             layout.EndVertical();
             layout.BeginVertical(new Padding(5), new Size(5,5), false, true);
             layout.Add(imageExplor);
