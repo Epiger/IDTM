@@ -5,15 +5,24 @@ using System.IO;
 using Idtm.IO;
 using System.Collections.Generic;
 
-namespace Idtm {
+namespace Idtm.Wind {
 
     public class IDTMForm : Form {
+
+        public static int imageFile = 0;
+
+        private Label titleLabel;
+        private ImageView mainImage;
+        private TagEditer tagEditer;
+        private ImageScroller imageExplor;
+
 	    public IDTMForm(){
 		    // sets the client (inner) size of the window for your content
 		    this.ClientSize = new Size(600, 400);
 
 		    this.Title = "IDTM";
 
+            //Toolbar
             ToolBar = new ToolBar{
                 Items ={ 
                     new CreateCommand(),
@@ -22,12 +31,55 @@ namespace Idtm {
                     new SaveCommand()
                 }
             };
+            
+            //Layout
+            DynamicLayout layout = new DynamicLayout();
+
+
+            titleLabel = new Label();
+            mainImage = new ImageView();
+            tagEditer = new TagEditer();
+            imageExplor = new ImageScroller();
+            
+
+            layout.BeginHorizontal();
+            layout.BeginVertical(new Padding(5), new Size(5,5), true, false);
+            layout.Add(titleLabel, false, false);
+            layout.Add(mainImage, true, true);
+            layout.Add(tagEditer, true, false);
+            layout.EndVertical();
+            layout.BeginVertical(new Padding(5), new Size(5,5), false, true);
+            layout.Add(imageExplor);
+            layout.EndVertical();
+            layout.EndHorizontal();
+
+            
+
+            Content = layout;          
 
         
 	    }
 
-        
+        public void ReDraw(){
+            //Setting the vars
+            titleLabel.Text = Bio.imgs[imageFile].name;
+            mainImage.Image = new Bitmap(Bio.idtmFolder + Path.DirectorySeparatorChar + Bio.imgs[imageFile].name);
+
+            //Calling ReDraw
+            imageExplor.ReDraw();
+            tagEditer.ReDraw();
+
+            
+
+            //Invalidating
+            titleLabel.Invalidate();
+            mainImage.Invalidate();
+            tagEditer.Invalidate(true);
+            imageExplor.Invalidate(true);
+        }
+
     }
+
 
     class CreateCommand : Command {
         
@@ -39,7 +91,7 @@ namespace Idtm {
             //Icon
             Image = Bitmap.FromResource("idtm.icons.Create_16x.png");
             //Shortcut
-            Shortcut = Application.Instance.CommonModifier | Keys.O;
+            Shortcut = Application.Instance.CommonModifier | Keys.N;
         }
 
         protected override void OnExecuted(EventArgs e){
@@ -56,10 +108,10 @@ namespace Idtm {
             
 
             if(dialog.FileName.Contains(Path.DirectorySeparatorChar.ToString())){
-                Program.actualFile = dialog.FileName;
+                Bio.idtmFile = dialog.FileName;
                 Bio.CreateFile(dialog.FileName);
 
-                //LATER AUTOMATICLY OPEN FILE                
+                //LATER AUTOMATICLY OPEN FILE
             }
             return;
         }
@@ -95,8 +147,9 @@ namespace Idtm {
                     if(Bio.Validate(dialog.FileName)){
                         //Does the file has a vaild schema
                         //Set the List and the filepath string
-                        Program.imgs = Bio.ReadFile(dialog.FileName);
-                        Program.actualFile = dialog.FileName;
+                        Aio.OpenFile(dialog.FileName);
+                        
+                        
                     }else {
                         MessageBox.Show("This file doesn't have the right schema!");
                     }
@@ -122,8 +175,8 @@ namespace Idtm {
 
         protected override void OnExecuted(EventArgs e){
 		    base.OnExecuted(e);
-            if(Program.actualFile != "" && File.Exists(Program.actualFile)){
-                Bio.SaveFile(Program.imgs, Program.actualFile);
+            if(Bio.idtmFile != "" && File.Exists(Bio.idtmFile)){
+                Bio.SaveFile(Bio.imgs, Bio.idtmFile);
             }
         }
     }
