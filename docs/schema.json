@@ -3,53 +3,39 @@
     "$id": "http://epiger.github.io/IDTM/schema.json",
     "type":"object",
     "patternProperties":{
-        "^tag_header$":{
+        "^HEADER$":{
             "type":"array",
             "items":{
                 "type":"string"
             }
         },
         ".jpg$":{
-            "type":"object",
-            "patternProperties":{
-                "":{"type":"number"}
-            }
+            "type":"array",
+            "items":{"type":"integer"}
         },
         ".png$":{
-            "type":"object",
-            "patternProperties":{
-                "":{"type":"number"}
-            }
+            "type":"array",
+            "items":{"type":"integer"}
         },
         ".tif$":{
-            "type":"object",
-            "patternProperties":{
-                "":{"type":"number"}
-            }
+            "type":"array",
+            "items":{"type":"integer"}
         },
         ".jpeg$":{
-            "type":"object",
-            "patternProperties":{
-                "":{"type":"number"}
-            }
+            "type":"array",
+            "items":{"type":"integer"}
         },
         ".tiff$":{
-            "type":"object",
-            "patternProperties":{
-                "":{"type":"number"}
-            }
+            "type":"array",
+            "items":{"type":"integer"}
         },
         ".gif$":{
-            "type":"object",
-            "patternProperties":{
-                "":{"type":"number"}
-            }
+            "type":"array",
+            "items":{"type":"integer"}
         },
         ".bmp$":{
-            "type":"object",
-            "patternProperties":{
-                "":{"type":"number"}
-            }
+            "type":"array",
+            "items":{"type":"integer"}
         }
     },
     
