@@ -69,33 +69,13 @@ namespace Idtm.IO {
             iTLs.Clear();
 
             using(JsonTextReader  reader = new JsonTextReader(new StreamReader(path))){
-
+                
+                //Temp storage
                 string tempname = "";
                 ITL tempitl = new ITL();
                 
 
                 while(reader.Read()){
-                    /*  Output
-                        Token: StartObject
-                        PropertyName, Value: HEADER
-                        Token: StartArray
-                        String, Value: tag1
-                        String, Value: tag3
-                        String, Value: tag4
-                        Token: EndArray
-                        PropertyName, Value: IMG_0067.jpg
-                        Token: StartArray
-                        Integer, Value: 5
-                        Integer, Value: 7
-                        Token: EndArray
-                        PropertyName, Value: IMG_0096.jpg
-                        Token: StartArray
-                        Integer, Value: 4
-                        Integer, Value: 3
-                        Integer, Value: 1
-                        Token: EndArray
-                        Token: EndObject
-                        */
                     if (reader.Value != null){
                         //Console.WriteLine("{0}, Value: {1}", reader.TokenType, reader.Value);
                         switch(reader.TokenType.ToString()){
@@ -134,7 +114,26 @@ namespace Idtm.IO {
 
             }
 
+            //Look for new images
+            //Redraw the screen
+
+
                 
+        }
+
+
+        public static void Create(string path){
+            using(StreamReader sr = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("idtm.docs.template.json")))
+            using(StreamWriter sw = new StreamWriter(path)){
+                sw.Write(sr.ReadToEnd());
+            }
+            //Open File afterwards
+        }
+
+        public static void Reload(){
+            if(!(Bio.dir == "" || Bio.dir == null) && !(Bio.file == "" || Bio.file == null)){
+                Open(Bio.dir + Path.DirectorySeparatorChar + Bio.file);
+            }
         }
 
         //REEEMOVE

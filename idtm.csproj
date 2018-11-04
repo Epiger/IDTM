@@ -16,6 +16,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildProjectDirectory)\\icons\\*"/>
     <EmbeddedResource Include="$(MSBuildProjectDirectory)\\docs\\schema.json"/>
+    <EmbeddedResource Include="$(MSBuildProjectDirectory)\\docs\\template.json"/>
   </ItemGroup>
 
 </Project>
