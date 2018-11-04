@@ -64,9 +64,13 @@ namespace Idtm.IO {
                 return;
             }
 
-            //Clear things up
+             //Clear things up
             header.Clear();
             iTLs.Clear();
+
+            //Update Variables
+            dir = Path.GetDirectoryName(path);
+            file = Path.GetFileName(path);
 
             using(JsonTextReader  reader = new JsonTextReader(new StreamReader(path))){
                 
@@ -137,7 +141,7 @@ namespace Idtm.IO {
         }
 
 
-        //IT WOOORKS ???
+        //IT WOOORKS
         public static bool Validate(string path){
             using(StreamReader scr = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("idtm.docs.schema.json"))){
                 JSchema schema = JSchema.Parse(scr.ReadToEnd());
@@ -153,6 +157,17 @@ namespace Idtm.IO {
                 }
             }
             return false;
+        }
+
+
+        public static List<string> GetFiles(string path){
+            List<string> files = new List<string>();
+            foreach(string file in Directory.GetFiles(path)){
+                if(RightsExt(file)){
+                    files.Add(Path.GetFileName(file));
+                }
+            }
+            return files;
         }
 
        

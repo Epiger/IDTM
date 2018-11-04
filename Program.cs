@@ -69,6 +69,11 @@ namespace Idtm {
                     Console.WriteLine("  {0}: {1}", Bio.header[i], itl.values[i]);
                 }
             }
+            Console.WriteLine("Path: {0}; File: {1}", Bio.dir, Bio.file);
+
+            foreach(string filese in Bio.GetFiles(Directory.GetCurrentDirectory() + "\\demo")){
+                Console.WriteLine(filese);
+            }
             
 
             
