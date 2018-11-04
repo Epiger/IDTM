@@ -31,9 +31,9 @@ namespace Idtm {
             Console.WriteLine(Path.GetDirectoryName("C:\\Some\\Path\\file.json") + Path.DirectorySeparatorChar + "imageFile");
             
 
-            Application app = new Application();
-            mainWindow = new IDTMForm();
-            app.Run(mainWindow);
+            //Application app = new Application();
+            //mainWindow = new IDTMForm();
+            //app.Run(mainWindow);
             
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "idtm.docs.schema.json";
@@ -45,23 +45,30 @@ namespace Idtm {
             }
 
             //Outputs the imgs NO VALIDATION TILL NOW
-            foreach(Img img in Bio.ReadFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json")){
+            /*foreach(Img img in Bio.ReadFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json")){
                 Console.WriteLine(img.name);
                 for(int i = 0; i < img.names.Count; i++){
                     Console.WriteLine("  " + img.names[i]);
                     Console.WriteLine("    " + img.values[i]);
                 }
-            }
+            }*/
 
     	    //Read and Save test
-            Console.WriteLine(Bio.SaveFile(Bio.ReadFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json"), Directory.GetCurrentDirectory() + "\\docs\\test.json"));
+            //Console.WriteLine(Bio.SaveFile(Bio.ReadFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json"), Directory.GetCurrentDirectory() + "\\docs\\test.json"));
 
             //Validation test
-            Console.WriteLine(Bio.Validate(Directory.GetCurrentDirectory() + "\\demo\\demo.json"));
+            //Console.WriteLine(Bio.Validate(Directory.GetCurrentDirectory() + "\\demo\\demo.json"));
 
-            Aio.OpenFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json");
+            //Aio.OpenFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json");
 
 
+            Bio.Open(Directory.GetCurrentDirectory() + "\\docs\\exam.json");
+            foreach(ITL itl in Bio.iTLs){
+                Console.WriteLine("Name: {0}", itl.name);
+                for(int i = 0; i < itl.values.Count; i++){
+                    Console.WriteLine("  {0}: {1}", Bio.header[i], itl.values[i]);
+                }
+            }
             
 
             

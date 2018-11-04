@@ -37,7 +37,7 @@ namespace Idtm.Wind {
 
         }
 
-        public void ReDraw(){
+        /*public void ReDraw(){
             layout.Items.Clear();
             foreach(string imgstr in Bio.filesInFolder){
                 layout.Items.Add(new StackLayoutItem(new ImageItem(Bio.idtmFolder + Path.DirectorySeparatorChar + imgstr), false));
@@ -46,7 +46,7 @@ namespace Idtm.Wind {
             }
             layout.Items.Add(null);
 
-        }
+        }*/
 
     }
 
@@ -158,7 +158,7 @@ namespace Idtm.Wind {
 
     }
 
-    public class TagEditer : Scrollable {
+    /*public class TagEditer : Scrollable {
 
         TableLayout layout;
 
@@ -173,7 +173,7 @@ namespace Idtm.Wind {
                         new TagLabel("tag5"),
                         new TagLabel("tag6"),
                         new TagLabel("tag7"),
-                        null*/
+                        null*//*
                     ),
                     new TableRow(
                         /*new TagEdit(),
@@ -183,7 +183,7 @@ namespace Idtm.Wind {
                         new TagEdit(),
                         new TagEdit(),
                         new TagEdit(),
-                        null*/
+                        null*//*
                     )
                 },
                 Padding = new Padding(2, 5),
@@ -269,7 +269,7 @@ namespace Idtm.Wind {
         }
             
             
-    }
+}*/
     
 
 

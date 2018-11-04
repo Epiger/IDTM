@@ -6,7 +6,7 @@ namespace Idtm.IO{
 
     public class Aio {
 
-        public static void OpenFile(string file){
+        /*public static void OpenFile(string file){
             //Reads the files and sets the vars
             Bio.imgs = Bio.ReadFile(file);
             Bio.idtmFile = file;
@@ -113,7 +113,7 @@ namespace Idtm.IO{
                 //If he found a match in the collected files he renames it
                 Bio.imgs[index].name = name;
             }
-        }
+        }*/
 
     }
 
