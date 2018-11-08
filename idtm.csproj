@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net472</TargetFramework>
-    <DebugType>portable</DebugType>
+    <OutputPath>bin\Debug\net472\</OutputPath>
+    <RestorePackageStyle>PackageReference</RestorePackageStyle>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
+    <Version>2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,10 +17,23 @@
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.10" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Compile Include="Program.cs"/>
+    <Compile Include="Aio.cs"/>
+    <Compile Include="Bio.cs"/>
+    <Compile Include="ImageExplo.cs"/>
+    <Compile Include="Wind.cs"/>
+    
+  </ItemGroup>
+
+
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildProjectDirectory)\\icons\\*"/>
     <EmbeddedResource Include="$(MSBuildProjectDirectory)\\docs\\schema.json"/>
     <EmbeddedResource Include="$(MSBuildProjectDirectory)\\docs\\template.json"/>
   </ItemGroup>
+
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
 </Project>
