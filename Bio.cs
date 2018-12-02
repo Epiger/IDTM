@@ -143,7 +143,7 @@ namespace Idtm.IO {
 
         //IT WOOORKS
         public static bool Validate(string path){
-            using(StreamReader scr = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("idtm.docs.schema.json"))){
+            using(StreamReader scr = new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream("docs.schema.json"))){
                 JSchema schema = JSchema.Parse(scr.ReadToEnd());
                 JObject file = JObject.Parse(File.ReadAllText(path));
                 return file.IsValid(schema);
