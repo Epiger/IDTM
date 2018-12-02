@@ -7,6 +7,7 @@ using System.Reflection;
 using Idtm.IO;
 using System.Collections.Generic;
 using Idtm.Wind;
+using Eto.Wpf;
 
 
 namespace Idtm {
@@ -14,10 +15,19 @@ namespace Idtm {
         
 
         public static IDTMForm mainWindow;
+        public static IDForm mainForm;
 
 
         [STAThread]
         static void Main(string[] args) {
+
+
+            //All the new things
+            Application app = new Application(new Eto.Wpf.Platform());
+            mainForm = new IDForm();
+            app.Run(mainForm);
+
+
             /* NEW
             
             string file;
