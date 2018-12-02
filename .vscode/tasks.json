@@ -3,13 +3,15 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
-            "type": "process",
+            "command": "msbuild",
+            "type": "shell",
             "args": [
-                "build",
-                "${workspaceFolder}/idtm.csproj"
+                "${workspaceFolder}/idtm.csproj",
+                "/restore:True",
+                "/p:Configuration=Debug",
+                "/p:Platform=x64"
+
             ],
-            "problemMatcher": "$msCompile"
         }
     ]
 }

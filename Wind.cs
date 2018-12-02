@@ -7,6 +7,19 @@ using System.Collections.Generic;
 
 namespace Idtm.Wind {
 
+
+    public class IDForm : Form {
+
+        public IDForm(){
+            
+        }
+
+
+
+    }
+
+
+
     public class IDTMForm : Form {
 
         /*public static int imageFile = 0;

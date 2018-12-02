@@ -18,6 +18,8 @@ namespace Idtm {
 
         [STAThread]
         static void Main(string[] args) {
+            /* NEW
+            
             string file;
             if(args.Length == 1 && File.Exists(args[0])){
                 file = args[0];
@@ -61,6 +63,7 @@ namespace Idtm {
 
             //Aio.OpenFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json");
 
+            /* NEW
 
             Bio.Open(Directory.GetCurrentDirectory() + "\\docs\\exam.json");
             foreach(ITL itl in Bio.iTLs){
@@ -75,10 +78,10 @@ namespace Idtm {
                 Console.WriteLine(filese);
             }
             
-
+            */
             
 
-
+            Console.WriteLine("HelloWorld");
 
 
 
