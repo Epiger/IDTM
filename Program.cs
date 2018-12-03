@@ -7,6 +7,8 @@ using System.Reflection;
 using Idtm.IO;
 using System.Collections.Generic;
 using Idtm.Wind;
+using Eto.Wpf;
+using System.Resources;
 
 
 namespace Idtm {
@@ -14,10 +16,61 @@ namespace Idtm {
         
 
         public static IDTMForm mainWindow;
+        public static IDForm mainForm;
 
 
         [STAThread]
         static void Main(string[] args) {
+
+            //Something older
+            string file;
+            if(args.Length == 1 && File.Exists(args[0])){
+                file = args[0];
+            }else if(args.Length != 0){
+                Console.WriteLine("The file you tried to specify doesn't exist");
+            }
+
+            //IDK
+            Console.WriteLine(Path.GetDirectoryName("C:\\Some\\Path\\file.json") + Path.DirectorySeparatorChar + "imageFile");
+
+
+            //All the new things XsAML
+            Application app = new Application(new Eto.Wpf.Platform());
+            mainForm = new IDForm();
+            app.Run(mainForm);
+
+
+
+            //Some uld thungs
+            var assembly = Assembly.GetEntryAssembly();
+            string resourceName = "docs.schema.json";
+            
+
+            string[] rName = assembly.GetManifestResourceNames();
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName)){
+            using (StreamReader reader = new StreamReader(stream)){
+                string result = reader.ReadToEnd();
+                Console.WriteLine(result);
+            }}
+
+            //new bio test
+            Bio.Open(Directory.GetCurrentDirectory() + "\\docs\\exam.json");
+            foreach(ITL itl in Bio.iTLs){
+                Console.WriteLine("Name: {0}", itl.name);
+                for(int i = 0; i < itl.values.Count; i++){
+                    Console.WriteLine("  {0}: {1}", Bio.header[i], itl.values[i]);
+                }
+            }
+            Console.WriteLine("Path: {0}; File: {1}", Bio.dir, Bio.file);
+
+            foreach(string filese in Bio.GetFiles(Directory.GetCurrentDirectory() + "\\demo")){
+                Console.WriteLine(filese);
+            }
+
+
+            /* NEW
+            
             string file;
             if(args.Length == 1 && File.Exists(args[0])){
                 file = args[0];
@@ -61,6 +114,7 @@ namespace Idtm {
 
             //Aio.OpenFile(Directory.GetCurrentDirectory() + "\\demo\\demo.json");
 
+            /* NEW
 
             Bio.Open(Directory.GetCurrentDirectory() + "\\docs\\exam.json");
             foreach(ITL itl in Bio.iTLs){
@@ -75,9 +129,8 @@ namespace Idtm {
                 Console.WriteLine(filese);
             }
             
-
+            */
             
-
 
 
 

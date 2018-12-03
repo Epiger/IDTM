@@ -7,6 +7,37 @@ using System.Collections.Generic;
 
 namespace Idtm.Wind {
 
+
+    public class IDForm : Form {
+
+        public IDForm(){
+            Size = new Size(800, 600);
+
+            var xamlCont = new XamlControl().ToEto();
+
+            Content = new TableLayout(){
+                Rows = {
+                    xamlCont,
+                    null,
+                    new TableRow(new Label(){Text = "Normal Label"})
+
+                }
+
+
+            };
+
+        }
+
+
+
+    }
+
+
+    
+
+
+
+
     public class IDTMForm : Form {
 
         /*public static int imageFile = 0;
