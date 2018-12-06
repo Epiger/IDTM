@@ -9,11 +9,32 @@ namespace Idtm.Wind {
 
 
     public class IDForm : Form {
+        
 
         public IDForm(){
             Size = new Size(800, 600);
+            Title = "Idtm - Image Database Tag Marker";
+
+            ToolBar = new ToolBar(){
+                Items = {
+                    new CreateCommand(),
+                    new OpenCommand(),
+                    new SeparatorToolItem(),
+                    new SaveCommand(),
+                    //?Save As?
+                    new SeparatorToolItem(),
+                    new ReloadCommand()
+
+                },
+                
+                
+
+            };
+
 
             var xamlCont = new XamlControl().ToEto();
+
+
 
             Content = new TableLayout(){
                 Rows = {
@@ -34,8 +55,53 @@ namespace Idtm.Wind {
 
 
     
+    public class CreateCommand : Command {
+        
+        public CreateCommand(){
+            ToolBarText = "Create";
 
+            Image = Bitmap.FromResource("icons.Create_16x.png");
 
+            Shortcut = Application.Instance.CommonModifier | Keys.N;
+        }
+
+    }
+
+    public class OpenCommand : Command {
+
+        public OpenCommand(){
+            ToolBarText = "Open";
+
+            Image = Bitmap.FromResource("icons.OpenFolder_16x.png");
+
+            Shortcut = Application.Instance.CommonModifier | Keys.O;
+        }
+
+    }
+
+    public class SaveCommand : Command {
+
+        public SaveCommand(){
+            ToolBarText = "Save";
+
+            Image = Bitmap.FromResource("icons.Save_16x.png");
+
+            Shortcut = Application.Instance.CommonModifier | Keys.S;
+        }
+
+    }
+
+    public class ReloadCommand : Command {
+
+        public ReloadCommand(){
+            ToolBarText = "Reload";
+
+            Image = Bitmap.FromResource("icons.ReloadXML_16x.png");
+
+            //Shortcut = Application.Instance.CommonModifier | Keys.R;
+        }
+
+    }
 
 
     public class IDTMForm : Form {
