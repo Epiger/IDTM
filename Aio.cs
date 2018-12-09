@@ -19,18 +19,28 @@ namespace Idtm.IO{
         public static void Remove(string name){
             //Removes an image from the list
             //When the filesystemwatcher detects the remove
+            int index = indexOf(Bio.iTLs, name);
+            if(index != -1){
+                Bio.iTLs.RemoveAt(index);
+            }
 
         }
 
-        public static void Rename(string oldname, string newname){
+        public static void Rename(string oldName, string newName){
             //Renames an image and its file from the list
             //Calls: When the user chooses to rename the image(rightclick), When the filesystemwatcher detects a new name
+            int index = indexOf(Bio.iTLs, oldName);
+            if(index != -1){
+                Bio.iTLs[index].name = newName;
+            }
 
         }
 
-        public static void Create(string name){
+        public static void Create(string fileName){
             //Creates an entry on the list
             //Calls: On startup if there is a new file, When filesystemwatcher detects a new images
+
+            Bio.iTLs.Add(new ITL(){name = fileName});
 
         }
 
