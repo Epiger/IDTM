@@ -1,10 +1,53 @@
 using System;
 using System.IO;
 using Idtm;
+using System.Collections.Generic;
 
 namespace Idtm.IO{
 
     public class Aio {
+
+        //Notes:
+        //names always include the file extension
+
+
+        public static void init(){
+            //init and setup the filesstemwatcher
+
+        }
+
+        public static void Remove(string name){
+            //Removes an image from the list
+            //When the filesystemwatcher detects the remove
+
+        }
+
+        public static void Rename(string oldname, string newname){
+            //Renames an image and its file from the list
+            //Calls: When the user chooses to rename the image(rightclick), When the filesystemwatcher detects a new name
+
+        }
+
+        public static void Create(string name){
+            //Creates an entry on the list
+            //Calls: On startup if there is a new file, When filesystemwatcher detects a new images
+
+        }
+
+
+
+        public static int indexOf(List<ITL> list, string name){
+            for(int i = 0; i < list.Count; i++){
+                if(list[i].name == name){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+
+
+
 
         /*public static void OpenFile(string file){
             //Reads the files and sets the vars

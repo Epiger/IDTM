@@ -21,6 +21,7 @@ namespace Idtm.IO {
 
         public static void init(){
             //Call Aio.init() and Tio.init()
+            Aio.init();
         }
 
         //Not tested
