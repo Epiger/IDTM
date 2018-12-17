@@ -13,7 +13,15 @@ namespace Idtm.IO{
 
         public static void init(){
             //init and setup the filesstemwatcher
-
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = Bio.dir;
+            //what should be watched for
+            watcher.Created += new FileSystemEventHandler(fsChanged);    
+            watcher.Renamed += new RenamedEventHandler(fsRenamed);
+            watcher.Changed += new FileSystemEventHandler(fsChanged);
+            watcher.Deleted += new FileSystemEventHandler(fsChanged);
+            //Enable the listening
+            watcher.EnableRaisingEvents = true;
         }
 
         public static void Remove(string name){
@@ -53,6 +61,21 @@ namespace Idtm.IO{
                 }
             }
             return -1;
+        }
+
+
+        private static void fsRenamed(object source, RenamedEventArgs e){
+            Console.WriteLine(@"fsRenamed: Event: {0} 
+            Event: {1}, {2}", e.ChangeType, e.OldName, e.Name);
+
+
+        }
+
+        private static void fsChanged(object source, FileSystemEventArgs e){
+            Console.WriteLine(@"fsChanged: Event: {0}
+            Event: {1}", e.ChangeType, e.Name);
+
+
         }
 
 
