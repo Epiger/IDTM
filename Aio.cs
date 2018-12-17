@@ -1,10 +1,86 @@
 using System;
 using System.IO;
 using Idtm;
+using System.Collections.Generic;
 
 namespace Idtm.IO{
 
     public class Aio {
+
+        //Notes:
+        //names always include the file extension
+
+
+        public static void init(){
+            //init and setup the filesstemwatcher
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = Bio.dir;
+            //what should be watched for
+            watcher.Created += new FileSystemEventHandler(fsChanged);    
+            watcher.Renamed += new RenamedEventHandler(fsRenamed);
+            watcher.Changed += new FileSystemEventHandler(fsChanged);
+            watcher.Deleted += new FileSystemEventHandler(fsChanged);
+            //Enable the listening
+            watcher.EnableRaisingEvents = true;
+        }
+
+        public static void Remove(string name){
+            //Removes an image from the list
+            //When the filesystemwatcher detects the remove
+            int index = indexOf(Bio.iTLs, name);
+            if(index != -1){
+                Bio.iTLs.RemoveAt(index);
+            }
+
+        }
+
+        public static void Rename(string oldName, string newName){
+            //Renames an image and its file from the list
+            //Calls: When the user chooses to rename the image(rightclick), When the filesystemwatcher detects a new name
+            int index = indexOf(Bio.iTLs, oldName);
+            if(index != -1){
+                Bio.iTLs[index].name = newName;
+            }
+
+        }
+
+        public static void Create(string fileName){
+            //Creates an entry on the list
+            //Calls: On startup if there is a new file, When filesystemwatcher detects a new images
+
+            Bio.iTLs.Add(new ITL(){name = fileName});
+
+        }
+
+
+
+        public static int indexOf(List<ITL> list, string name){
+            for(int i = 0; i < list.Count; i++){
+                if(list[i].name == name){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+
+        private static void fsRenamed(object source, RenamedEventArgs e){
+            Console.WriteLine(@"fsRenamed: Event: {0} 
+            Event: {1}, {2}", e.ChangeType, e.OldName, e.Name);
+
+
+        }
+
+        private static void fsChanged(object source, FileSystemEventArgs e){
+            Console.WriteLine(@"fsChanged: Event: {0}
+            Event: {1}", e.ChangeType, e.Name);
+
+
+        }
+
+
+
+
 
         /*public static void OpenFile(string file){
             //Reads the files and sets the vars

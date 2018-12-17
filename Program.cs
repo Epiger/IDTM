@@ -68,6 +68,11 @@ namespace Idtm {
                 Console.WriteLine(filese);
             }
 
+            //new Aio Fs test
+            Console.WriteLine(@"Aio test ahead: {0}", Directory.GetCurrentDirectory());
+            Bio.dir = Directory.GetCurrentDirectory();
+            Aio.init();
+
 
             /* NEW
             
